@@ -1,1 +1,2 @@
-Experiments and preliminary implementations of things.
+# toybox
+A collection of small toy programs
