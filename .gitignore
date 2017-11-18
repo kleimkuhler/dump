@@ -1,5 +1,8 @@
 *~
 **/target/
 
+# C++ programs
+**/*.out
+
 # Rust programs
 **/Cargo.lock
