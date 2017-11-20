@@ -35,7 +35,7 @@ int main()
         int words_index = 0;
         vector<int> word_counts;
         for (str_vec_sz i = 0; i != words_size; i++) {
-            if (words[i] == prev_word) {
+            if (words[i].compare(prev_word) == 0) {
                 word_counts[words_index-1] += 1;
             } else {
                 prev_word = words[i];
@@ -48,6 +48,13 @@ int main()
         unique_words = word_counts.size();
     }
 
+    /*
+     * Originally planned to display each unique word with
+     * it's count, but after understanding the gist,
+     * decided to just do word_counts.size. I kept the
+     * original implementation though to show the printing
+     * would just be more involved.
+     */
     cout << "Number of unique words = "
          << unique_words << endl;
 
