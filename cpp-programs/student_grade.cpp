@@ -14,6 +14,12 @@ using std::domain_error; using std::istream;
 
 typedef vector<double>::size_type vec_sz;
 
+struct Student_info {
+    string name;
+    double midterm, final;
+    vector<double> homework;
+};
+
 // compute the median of a vector<double>
 double median(vector<double> vec)
 {
@@ -27,6 +33,11 @@ double median(vector<double> vec)
     vec_sz mid = size / 2;
 
     return size % 2 == 0 ? (vec[mid] + vec[mid-1]) / 2 : vec[mid];
+}
+
+// compare the names of two students for sort()
+bool compare(const Student_info& x, const Student_info& y) {
+    return x.name < y.name;
 }
 
 // compute a student's overall grade from midterm, final and median
@@ -45,6 +56,10 @@ double grade(double midterm, double final, const vector<double>& hw) {
     return grade(midterm, final, median(hw));
 }
 
+double grade(const Student_info& s) {
+    return grade(s.midterm, s.final, s.homework);
+}
+
 istream& read_hw(istream& in, vector<double>& hw) {
     if (in) {
         // get rid of previous contents
@@ -57,9 +72,16 @@ istream& read_hw(istream& in, vector<double>& hw) {
 
         // clear the stream so that input will work for the next student
         in.clear();
-    }      
-    
+    }          
     return in;
+}
+
+istream& read(istream& is, Student_info& s) {
+    // read and store the student's name, midterm, and final exam grades
+    is >> s.name >> s.midterm >> s.final;
+
+    read_hw(is, s.homework);
+    return is;
 }
 
 int main()
