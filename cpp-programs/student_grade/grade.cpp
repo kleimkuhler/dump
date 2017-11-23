@@ -20,8 +20,3 @@ double grade(double midterm, double final, const vector<double>& hw) {
     }
     return grade(midterm, final, median(hw));
 }
-
-// compute a student's overall grade from Student_info class
-double grade(const Student_info& s) {
-    return grade(s.midterm, s.final, s.homework);
-}
