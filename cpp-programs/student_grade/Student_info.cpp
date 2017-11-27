@@ -1,10 +1,7 @@
 #include <iostream>
-#include <stdexcept>
-#include "grade.h"
 #include "Student_info.h"
 
 using std::istream;  using std::vector;
-using std::cout;     using std::domain_error;
 
 // compare the names of two students for sort()
 bool compare(const Student_info& x, const Student_info& y) {
@@ -13,17 +10,10 @@ bool compare(const Student_info& x, const Student_info& y) {
 
 istream& read(istream& is, Student_info& s) {
     // read and store the student's name, midterm, and final exam grades
-    double midterm, final;
-    is >> s.name >> midterm >> final;
+    is >> s.name >> s.midterm >> s.final;
 
-    vector<double> homework;
-    read_hw(is, homework);
-
-    try {
-        s.grade = grade(midterm, final, homework);
-    } catch (domain_error e) {
-        s.grade = -1;
-    }
+    // read and store the student's homework grades
+    read_hw(is, s.homework);
 
     return is;
 }
