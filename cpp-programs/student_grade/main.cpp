@@ -2,9 +2,11 @@
 #include <iomanip>
 #include <ios>
 #include <iostream>
+#include <list>
 #include <string>
 #include <stdexcept>
 #include <vector>
+#include "extract_fails.h"
 #include "grade.h"
 #include "Student_info.h"
 
@@ -13,40 +15,62 @@ using std::cout;    using std::sort;
 using std::vector;  using std::streamsize;
 using std::endl;    using std::string;
 using std::max;     using std::domain_error;
-using std::vector;
+using std::vector;  using std::list;
+
+int main_vector()
+{
+  vector<Student_info> students;
+  Student_info record;
+
+  while(read(cin, record))
+    students.push_back(record);
+
+  // Extract failed students
+  vector<Student_info> students_failed = extract_fails_v3(students);
+
+  sort(students.begin(), students.end(), compare);
+  sort(students_failed.begin(), students_failed.end(), compare);
+
+  // Passing students
+  cout << "These students passed." << endl;
+  for (vector<Student_info>::const_iterator it = students.begin();
+       it != students.end(); ++it)
+    cout << it->name << endl;
+
+  // Failing students
+  cout << "These students failed." << endl;
+  for (vector<Student_info>::const_iterator it = students_failed.begin();
+       it != students_failed.end(); ++it)
+    cout << it->name << endl;
+
+  return 0;
+}
 
 int main()
 {
-    vector<Student_info> students;
-    Student_info record;
-    string::size_type maxlen = 0;
+  list<Student_info> students;
+  Student_info record;
 
-    // read and store all the records
-    while (read(cin, record)) {
-        maxlen = max(maxlen, record.name.size());
-        students.push_back(record);
-    }
+  while(read(cin, record))
+    students.push_back(record);
 
-    // alphabetize the records
-    sort(students.begin(), students.end(), compare);
+  // Extract failed students
+  list<Student_info> students_failed = extract_fails_v4(students);
 
-    streamsize prec = cout.precision();
-    for (vector<Student_info>::size_type i = 0;
-        i != students.size(); ++i) {
-        // write the name, padded on the right to maxlen + 1 characters
-        cout << students[i].name
-	     << string(maxlen + 1 - students[i].name.size(), ' ');
+  students.sort(compare);
+  students_failed.sort(compare);
 
-	// compute and write the grade
-	try {
-	    double final_grade = grade(students[i]);
-	    streamsize prec = cout.precision();
-	    cout << setprecision(3) << final_grade
-		 << setprecision(prec);
-	} catch (domain_error e) {
-	    cout << e.what();
-	}
-	cout << endl;
-    }
-    return 0;
+  // Passing students
+  cout << "These students passed." << endl;
+  for (list<Student_info>::const_iterator it = students.begin();
+       it != students.end(); ++it)
+    cout << it->name << endl;
+
+  // Failing students
+  cout << "These students failed." << endl;
+  for (list<Student_info>::const_iterator it = students_failed.begin();
+       it != students_failed.end(); ++it)
+    cout << it->name << endl;
+
+  return 0;
 }

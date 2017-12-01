@@ -1,3 +1,4 @@
+#include <list>
 #include <vector>
 #include "extract_fails.h"
 #include "grade.h"
