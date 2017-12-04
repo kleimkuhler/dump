@@ -1,8 +1,10 @@
 #include <algorithm>
+#include <iostream>
 #include "frame.h"
 
 using std::max;     using std::string;
-using std::vector;
+using std::vector;  using std::cout;
+using std::endl;
 
 string::size_type width(const vector<string>& v)
 {
@@ -30,4 +32,12 @@ vector<string> frame(const vector<string>& v)
   // write the bottom border
   ret.push_back(border);
   return ret;
+}
+
+int pretty_print(const vector<string>& v)
+{
+  for (vector<string>::const_iterator it = v.begin();
+       it != v.end(); ++it)
+    cout << *it << endl;
+  return 0;
 }

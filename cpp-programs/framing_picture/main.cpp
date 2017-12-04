@@ -16,9 +16,16 @@ int main()
     picture.push_back(s);
 
   cout << "Picture" << endl;
-  for (vector<string>::const_iterator it = picture.begin();
-       it != picture.end(); ++it)
-    cout << *it << endl;
+  pretty_print(picture);
+
+  cout << "frame(Picture)" << endl;
+  pretty_print(frame(picture));
+
+  cout << "hcat(Picture, frame(Picture))" << endl;
+  pretty_print(hcat(picture, frame(picture)));
+
+  cout << "vcat(Picture, frame(Picture))" << endl;
+  pretty_print(vcat(picture, frame(picture)));
 
   return 0;
 }
