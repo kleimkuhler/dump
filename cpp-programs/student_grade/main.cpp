@@ -31,6 +31,8 @@ int main_vector()
   sort(students.begin(), students.end(), compare);
   sort(students_failed.begin(), students_failed.end(), compare);
 
+  /*
+   * Comment out for timing tests
   // Passing students
   cout << "These students passed." << endl;
   for (vector<Student_info>::const_iterator it = students.begin();
@@ -42,6 +44,7 @@ int main_vector()
   for (vector<Student_info>::const_iterator it = students_failed.begin();
        it != students_failed.end(); ++it)
     cout << it->name << endl;
+  */
 
   return 0;
 }
@@ -60,6 +63,8 @@ int main()
   students.sort(compare);
   students_failed.sort(compare);
 
+  /*
+   * Comment out for timing tests
   // Passing students
   cout << "These students passed." << endl;
   for (list<Student_info>::const_iterator it = students.begin();
@@ -71,6 +76,7 @@ int main()
   for (list<Student_info>::const_iterator it = students_failed.begin();
        it != students_failed.end(); ++it)
     cout << it->name << endl;
+  */
 
   return 0;
 }

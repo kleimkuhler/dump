@@ -1,10 +1,13 @@
+#include <iostream>
 #include <list>
+#include <time.h>
 #include <vector>
 #include "extract_fails.h"
 #include "grade.h"
 #include "Student_info.h"
 
 using std::list;  using std::vector;
+using std::cout;  using std::endl;
 
 // predicate to determine whether a student failed
 bool fgrade(const Student_info& s)
@@ -47,8 +50,11 @@ vector<Student_info> extract_fails_v2(vector<Student_info>& students)
 // v3
 vector<Student_info> extract_fails_v3(vector<Student_info>& students)
 {
+  clock_t t;
   vector<Student_info> fail;
   vector<Student_info>::iterator iter = students.begin();
+
+  t = clock();
   while (iter != students.end()) {
     if (fgrade(*iter)) {
       fail.push_back(*iter);
@@ -56,14 +62,19 @@ vector<Student_info> extract_fails_v3(vector<Student_info>& students)
     } else
       ++iter;
   }
+  t = clock() - t;
+  cout << "v3: " << (float)t/CLOCKS_PER_SEC << endl;
   return fail;
 }
 
 // v4
 list<Student_info> extract_fails_v4(list<Student_info>& students)
 {
+  clock_t t;
   list<Student_info> fail;
   list<Student_info>::iterator iter = students.begin();
+
+  t = clock();
   while (iter != students.end()) {
     if (fgrade(*iter)) {
       fail.push_back(*iter);
@@ -71,5 +82,7 @@ list<Student_info> extract_fails_v4(list<Student_info>& students)
     } else
       ++iter;
   }
+  t = clock() - t;
+  cout << "v4: " << (float)t/CLOCKS_PER_SEC << endl;
   return fail;
 }
