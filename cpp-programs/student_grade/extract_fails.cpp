@@ -48,7 +48,7 @@ vector<Student_info> extract_fails_v2(vector<Student_info>& students)
 }
 
 // v3
-vector<Student_info> extract_fails_v3(vector<Student_info>& students)
+vector<Student_info> extract_fails_final(vector<Student_info>& students)
 {
   clock_t t;
   vector<Student_info> fail;
@@ -68,7 +68,7 @@ vector<Student_info> extract_fails_v3(vector<Student_info>& students)
 }
 
 // v4
-list<Student_info> extract_fails_v4(list<Student_info>& students)
+list<Student_info> extract_fails_final(list<Student_info>& students)
 {
   clock_t t;
   list<Student_info> fail;

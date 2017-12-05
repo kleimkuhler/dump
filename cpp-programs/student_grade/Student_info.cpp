@@ -2,10 +2,23 @@
 #include "Student_info.h"
 
 using std::istream;  using std::vector;
+using std::list;
 
 // compare the names of two students for sort()
 bool compare(const Student_info& x, const Student_info& y) {
     return x.name < y.name;
+}
+
+int sort(vector<Student_info>& students)
+{
+    sort(students.begin(), students.end(), compare);
+    return 0;
+}
+
+int sort(list<Student_info>& students)
+{
+    students.sort(compare);
+    return 0;
 }
 
 istream& read(istream& is, Student_info& s) {

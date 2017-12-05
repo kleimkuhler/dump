@@ -17,66 +17,33 @@ using std::endl;    using std::string;
 using std::max;     using std::domain_error;
 using std::vector;  using std::list;
 
-int main_vector()
-{
-  vector<Student_info> students;
-  Student_info record;
-
-  while(read(cin, record))
-    students.push_back(record);
-
-  // Extract failed students
-  vector<Student_info> students_failed = extract_fails_v3(students);
-
-  sort(students.begin(), students.end(), compare);
-  sort(students_failed.begin(), students_failed.end(), compare);
-
-  /*
-   * Comment out for timing tests
-  // Passing students
-  cout << "These students passed." << endl;
-  for (vector<Student_info>::const_iterator it = students.begin();
-       it != students.end(); ++it)
-    cout << it->name << endl;
-
-  // Failing students
-  cout << "These students failed." << endl;
-  for (vector<Student_info>::const_iterator it = students_failed.begin();
-       it != students_failed.end(); ++it)
-    cout << it->name << endl;
-  */
-
-  return 0;
-}
+typedef list<Student_info> Students_container;
 
 int main()
 {
-  list<Student_info> students;
+  Students_container students;
   Student_info record;
 
   while(read(cin, record))
     students.push_back(record);
 
   // Extract failed students
-  list<Student_info> students_failed = extract_fails_v4(students);
+  Students_container students_failed = extract_fails_final(students);
 
-  students.sort(compare);
-  students_failed.sort(compare);
+  sort(students);
+  sort(students_failed);
 
-  /*
-   * Comment out for timing tests
   // Passing students
   cout << "These students passed." << endl;
-  for (list<Student_info>::const_iterator it = students.begin();
+  for (Students_container::const_iterator it = students.begin();
        it != students.end(); ++it)
     cout << it->name << endl;
 
   // Failing students
   cout << "These students failed." << endl;
-  for (list<Student_info>::const_iterator it = students_failed.begin();
+  for (Students_container::const_iterator it = students_failed.begin();
        it != students_failed.end(); ++it)
     cout << it->name << endl;
-  */
 
   return 0;
 }
