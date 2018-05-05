@@ -4,5 +4,8 @@
 # C++ programs
 **/*.out
 
+# Idris programs
+**/*.ibc
+
 # Rust programs
 **/Cargo.lock

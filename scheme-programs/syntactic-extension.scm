@@ -14,12 +14,12 @@
 
 ;; If the above used `letrec-syntax`, it would evaluate to (1 1)
 
-(define-syntax or
-  (syntax-rules ()
-    [(_) #f]
-    [(_ e) e]
-    [(_ e1 e2 e3 ...)
-     (let ([t e1]) (if t t (or e2 e3 ...)))]))
+;; (define-syntax or
+;;   (syntax-rules ()
+;;     [(_) #f]
+;;     [(_ e) e]
+;;     [(_ e1 e2 e3 ...)
+;;      (let ([t e1]) (if t t (or e2 e3 ...)))]))
 
 ;; (let ([if #f])
 ;;   (let ([t 'okay])
@@ -42,13 +42,13 @@
 ;;     (set! a 1)
 ;;     (list before a ls))) => (0 1 (1))
 
-(define-syntax or
-  (lambda (x)
-    (syntax-case x ()
-      [(_) #'#f]
-      [(_ e) #'e]
-      [(_ e1 e2 e3 ...)
-       #'(let ([t e1]) (if t t (or e2 e3 ...)))])))
+;; (define-syntax or
+;;   (lambda (x)
+;;     (syntax-case x ()
+;;       [(_) #'#f]
+;;       [(_ e) #'e]
+;;       [(_ e1 e2 e3 ...)
+;;        #'(let ([t e1]) (if t t (or e2 e3 ...)))])))
 
 (define-syntax syntax-rules
   (lambda (x)
@@ -173,19 +173,20 @@
     (syntax-case x ()
       [(_ name field ...)
        (with-syntax ([constructor (gen-id #'name "make-" #'name)]
-		     [predicate (gen-id #'name #'name "?")]
-		     [(access ...)
-		      (map (lambda (x) (gen-id #'name "-" x))
-			   #'(field ...))]
-		     [(assign ...)
-		      (map (lambda (x)
-			     (gen-id x "set-" #'name "-" x "!")))]
-		     [structure-length (+ (length #'(field ...)) 1)]
-		     [(index ...)
-		      (let f ([i 1] [ids #'(field ...)])
-			(if (null? ids)
-			    '()
-			    (cons i (f (+ i 1) (cdr ids)))))])
+                     [predicate (gen-id #'name #'name "?")]
+                     [(access ...)
+                      (map (lambda (x) (gen-id x #'name "-" x))
+                           #'(field ...))]
+                     [(assign ...)
+                      (map (lambda (x)
+                             (gen-id x "set-" #'name "-" x "!"))
+                           #'(field ...))]
+                     [structure-length (+ (length #'(field ...)) 1)]
+                     [(index ...)
+                      (let f ([i 1] [ids #'(field ...)])
+                        (if (null? ids)
+                            '()
+                            (cons i (f (+ i 1) (cdr ids)))))])
 		    #'(begin
 			(define constructor
 			  (lambda (field ...)
