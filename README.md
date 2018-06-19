@@ -1,2 +1,2 @@
 # Dump
-A collection of small programs
+A collection of code snippets
