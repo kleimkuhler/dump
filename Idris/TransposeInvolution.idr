@@ -1,6 +1,8 @@
 module TransposeInvolution
 
 %default total
+%hide zipWith
+%hide transpose
 
 data Vect : (len : Nat) -> (elem : Type) -> Type where
   Nil : Vect 0 elem
@@ -14,12 +16,15 @@ replicate : (len : Nat) -> (x : elem) -> Vect len elem
 replicate Z x = []
 replicate (S k) x = x :: replicate k x
 
-transpose : Vect m (Vect n a) -> Vect n (Vect m a)
+transpose : Vect m (Vect n elem) -> Vect n (Vect m elem)
 transpose [] = replicate _ []
 transpose (x :: xs) = let xsTrans = transpose xs in
                          zipWith (::) x xsTrans
 
-transpose_involution : (mat : Vect m (Vect n a)) -> mat = transpose $ transpose mat
-transpose_involution {n = Z} [] = Refl
-transpose_involution {n = (S k)} [] = ?transpose_involution_rhs_4
-transpose_involution (x :: xs) = ?transpose_involution_rhs_2
+lem1 : [] = transpose (replicate n [])
+lem1 {n = Z} = Refl
+lem1 {n = (S k)} = ?lem1_rhs_2
+
+transpose_involution : (mat : Vect m (Vect n elem)) -> mat = transpose $ transpose mat
+transpose_involution [] = lem1
+transpose_involution (x :: xs) = ?transpose_involution_cons
