@@ -1,30 +1,23 @@
 module TransposeInvolution
 
+import Data.Vect
+
 %default total
-%hide zipWith
-%hide transpose
 
-data Vect : (len : Nat) -> (elem : Type) -> Type where
-  Nil : Vect 0 elem
-  (::) : (x : elem) -> (xs : Vect len elem) -> Vect (S len) elem
+zipWith_replicate : (xs : Vect n elem) ->
+                    zipWith (::) xs (map (Vect.replicate m) xs) = map (Vect.replicate (S m)) xs
+zipWith_replicate [] = Refl
+zipWith_replicate (x :: xs) = ?zipWith_replicate_rhs_2
 
-zipWith : (f : a -> b -> c) -> (xs : Vect n a) -> (ys : Vect n b) -> Vect n c
-zipWith f [] [] = []
-zipWith f (x :: xs) (y :: ys) = f x y :: zipWith f xs ys
+replicate_nil : (xs : Vect n a) -> Vect.replicate n Nil = map (Vect.replicate 0) xs
+replicate_nil [] = Refl
+replicate_nil (x :: xs) = ?replicate_nil_rhs_2
 
-replicate : (len : Nat) -> (x : elem) -> Vect len elem
-replicate Z x = []
-replicate (S k) x = x :: replicate k x
-
-transpose : Vect m (Vect n elem) -> Vect n (Vect m elem)
-transpose [] = replicate _ []
-transpose (x :: xs) = let xsTrans = transpose xs in
-                         zipWith (::) x xsTrans
-
-lem1 : [] = transpose (replicate n [])
-lem1 {n = Z} = Refl
-lem1 {n = (S k)} = ?lem1_rhs_2
+transpose_replicate : (xs : Vect n elem) ->
+                      transpose (replicate n xs) = map (replicate n) xs
+transpose_replicate [] = Refl
+transpose_replicate (x :: xs) = ?transpose_replicate_rhs_2
 
 transpose_involution : (mat : Vect m (Vect n elem)) -> mat = transpose $ transpose mat
-transpose_involution [] = lem1
-transpose_involution (x :: xs) = ?transpose_involution_cons
+transpose_involution [] = ?transpose_involution_rhs_1
+transpose_involution (x :: xs) = ?transpose_involution_rhs_2
