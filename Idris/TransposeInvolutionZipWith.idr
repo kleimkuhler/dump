@@ -1,4 +1,5 @@
-module TransposeInvolution
+-- WIP
+module TransposeInvolutionZipWith
 
 import Data.Vect
 
@@ -9,7 +10,7 @@ zipWith_replicate : (xs : Vect n elem) ->
 zipWith_replicate [] = Refl
 zipWith_replicate (x :: xs) = ?zipWith_replicate_rhs_2
 
-replicate_nil : (xs : Vect n a) -> Vect.replicate n Nil = map (Vect.replicate 0) xs
+replicate_nil : (xs : Vect n elem) -> Vect.replicate n Nil = map (Vect.replicate Z) xs
 replicate_nil [] = Refl
 replicate_nil (x :: xs) = ?replicate_nil_rhs_2
 
